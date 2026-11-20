@@ -1,39 +1,17 @@
 #include <Arduino.h>
+#include "MotorController.h"
 
-#include "TestMotorDriver.h"
-#include "MovementController.h"
-#include "RobotController.h"
+MotorController motor(7, 5);
 
-TestMotorDriver motor;
-
-MovementController movement(motor);
-
-RobotController robot(movement);
-
-void setup()
-{
-  Serial.begin(9600);
-
-  motor.begin();
-
-  robot.stop();
+void setup() {
+    motor.begin();
 }
 
-void loop()
-{
-  robot.moveForward(150);
 
-  delay(2000);
+void loop() {
+    motor.setMotion(Direction::FORWARD, 80);
+    delay(3000);
 
-  robot.stop();
-
-  delay(1000);
-
-  robot.moveBackward(200);
-
-  delay(2000);
-
-  robot.stop();
-
-  delay(1000);
+    motor.stop();
+    delay(2000);
 }
